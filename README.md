@@ -7,6 +7,6 @@
 - WALLNER Barbara
 
 **Work Load Distribution**:
-First Name | Last Name | Work 
+First Name | Last Name | Work
 --- | --- | ---
-Barbara | Wallner | Grundkonzept des FH Matchers aufgesetzt
+Barbara | Wallner | Grundkonzept des FH Matcher's konfiguriert
