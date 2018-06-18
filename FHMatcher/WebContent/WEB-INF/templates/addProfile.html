@@ -1,0 +1,131 @@
+ <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+  <title>Sign up</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+	<div class="container" role="main">
+	
+		<div class="page-header">
+			<h1><center><img src="FHMatcher.JPG"></center></h1>
+		</div>
+		
+		<!--  Error message ----------------------------------------------------------- -->
+		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+			class="alert alert-danger" role="alert"></div>
+		<!--  Error message ----------------------------------------------------------- -->
+		
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<form class="form-horizontal" method="post" th:action="@{/addProfile}">
+					<fieldset>
+						<legend th:text="${profiles}? 'Change profile' : 'New profile'">New profile</legend>
+
+
+						<!-- --------------  first Name ---------------- -->
+						<div class="form-group">
+							<label for="inputFirstName" class="col-md-2 control-label">First Name
+							</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputFirstName" type="text" name="firstname" th:value="${profiles} ? ${profiles.firstname}">
+							</div>
+						</div>
+						<!-- --------------  last Name ---------------- -->
+						<div class="form-group">
+							<label for="inputLastName" class="col-md-2 control-label">Last Name
+							</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputLastName" type="text" name="lastname" th:value="${profiles} ? ${profiles.lastname}">
+							</div>
+						</div>
+						
+						<!-- --------------  gender ---------------- -->
+						
+						<div class="form-group">
+							<label for="inputGender" class="col-md-2 control-label">Gender
+							</label>
+							<div class="col-md-10">
+								<input id ="inputGender" type="radio" name="gender" th:checked="${profiles} ? ${profiles.gender}" value="true">
+								<label class="_58mt" for = "gender">Female</label>
+							
+								<input id ="inputGender" type="radio" name="gender" th:checked="${profiles} ? ${profiles.gender}" value="false">
+								<label class="_58mt" for = "gender">Male</label>
+							</div>
+						</div>
+
+						<!-- --------------  dayOfBirth ---------------- -->
+						<div class="form-group">
+							<label for="inputDate" class="col-md-2 control-label">Date</label>
+							<div class="col-md-10">
+								<input class="form_datetime" id="inputDate" placeholder="Date" type="text" readonly name="dayOfBirth" th:value="${profiles} ? ${#dates.format(profiles.dayOfBirth, 'dd.MM.yyyy')}">
+							</div>
+						</div>
+						
+						<!-- --------------  username ---------------- -->
+						
+						<div class="form-group">
+							<label for="inputUsername" class="col-md-2 control-label">User Name
+							</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputUsername" type="text" name="username" th:value="${users} ? ${users.username}">
+							</div>
+						</div>
+						
+						<!-- --------------  password ---------------- -->
+						
+						<div class="form-group">
+							<label for="inputPassword" class="col-md-2 control-label">Choose a password
+							</label>
+							<div class="col-md-10">
+								<input class="form-control" id="inputPassword" type="password" name="password" th:value="${users} ? ${users.password}">
+							</div>
+						</div>
+
+						<!-- --------------  buttons ---------------- -->
+						<div class="form-group">
+							<div class="col-md-10 col-md-offset-2">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="listEmployees" class="btn btn-default">
+									Cancel
+								</a>
+							</div>
+						</div>
+
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<!--  End of container -->
+	<div th:include="~{includes/bootstrap :: bootstrapJS}" th:remove="tag" />
+
+	<!-- JS for Datetime picker -->
+	<script type="text/javascript" src="http://www.malot.fr/bootstrap-datetimepicker/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+
+	<script>
+		$(function () {
+
+			$(".form_datetime").datetimepicker({
+				format: "dd.mm.yyyy",
+				autoclose: true,
+				todayBtn: true,
+				pickerPosition: "bottom-left",
+				minView: 2
+			});
+
+		});
+	</script>
+
+</body>
+
+</html>
