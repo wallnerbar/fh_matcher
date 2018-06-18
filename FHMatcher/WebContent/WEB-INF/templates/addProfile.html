@@ -14,16 +14,9 @@
 
 <body>
 	<div class="container" role="main">
-	
 		<div class="page-header">
 			<h1><center><img src="FHMatcher.JPG"></center></h1>
 		</div>
-		
-		<!--  Error message ----------------------------------------------------------- -->
-		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
-			class="alert alert-danger" role="alert"></div>
-		<!--  Error message ----------------------------------------------------------- -->
-		
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2">
 				<form class="form-horizontal" method="post" th:action="@{/addProfile}">
@@ -54,10 +47,10 @@
 							<label for="inputGender" class="col-md-2 control-label">Gender
 							</label>
 							<div class="col-md-10">
-								<input id ="inputGender" type="radio" name="gender" th:checked="${profiles} ? ${profiles.gender}" value="true">
+								<input id ="inputGender" type="radio" name="gender" th:value="${profiles} ? ${profiles.gender}" value="true">
 								<label class="_58mt" for = "gender">Female</label>
 							
-								<input id ="inputGender" type="radio" name="gender" th:checked="${profiles} ? ${profiles.gender}" value="false">
+								<input id ="inputGender" type="radio" name="gender" th:value="${profiles} ? ${profiles.gender}" value="false">
 								<label class="_58mt" for = "gender">Male</label>
 							</div>
 						</div>
@@ -86,7 +79,7 @@
 							<label for="inputPassword" class="col-md-2 control-label">Choose a password
 							</label>
 							<div class="col-md-10">
-								<input class="form-control" id="inputPassword" type="password" name="password" th:value="${users} ? ${users.password}">
+								<input class="form-control" id="inputPassword" type="text" name="password" th:value="${users} ? ${users.password}">
 							</div>
 						</div>
 

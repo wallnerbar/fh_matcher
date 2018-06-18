@@ -1,9 +1,10 @@
 package swenga.controller;
 
-
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.text.ParseException;
 
 import javax.validation.Valid;
 
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,9 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
-import swenga.dao.ProfileDao;
 import swenga.dao.UserDao;
 import swenga.dao.UserRoleDao;
 import swenga.model.ProfilesModel;
@@ -32,13 +29,11 @@ import swenga.model.UserRoleModel;
 public class SecurityController {
 	
 	@Autowired
-	UserRoleDao userRoleDao;
-	
-	@Autowired
 	UserDao userDao;
 	
 	@Autowired
-	ProfileDao profileDao;
+	UserRoleDao userRoleDao;
+	
 	
 	@RequestMapping("/fillUsers")
 	@Transactional
@@ -63,8 +58,9 @@ public class SecurityController {
 		user.addUserRole(userRole);
 		userDao.persist(user);
  
-		return "forward:registration";
+		return "forward:login";
 	}
+	
 	
  
 	@ExceptionHandler(Exception.class)
