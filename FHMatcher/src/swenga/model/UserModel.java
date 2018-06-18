@@ -27,7 +27,6 @@ public class UserModel implements java.io.Serializable{
 	
 	@Column(name = "userName", nullable = false, length = 30)
 	private String userName;
- 
 
 	@Column(name = "password", nullable = false, length = 60)
 	private String password;

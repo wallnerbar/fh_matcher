@@ -1,6 +1,5 @@
 package swenga.model;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -12,9 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Version;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "profiles")
@@ -35,7 +34,7 @@ public class ProfilesModel implements java.io.Serializable {
 	@Column(nullable = false) 
 	private boolean gender;
 	
-	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	private Date dayOfBirth;
 	
 	@OneToOne(mappedBy= "profile")
