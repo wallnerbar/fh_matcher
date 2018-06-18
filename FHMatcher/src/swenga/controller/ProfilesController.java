@@ -61,7 +61,7 @@ public class ProfilesController {
 		ProfilesModel p2 = new ProfilesModel("Miriam", "Grainer", true, now);
 		profileDao.persist(p2);
 
-		ProfilesModel p3 = new ProfilesModel("Jane", "Doe", true, now);
+		ProfilesModel p3 = new ProfilesModel("Sebastian", "Kurz", false, now);
 		profileDao.persist(p3);
 
 		return "forward:list";
@@ -98,9 +98,15 @@ public class ProfilesController {
 	}
 	
 	@RequestMapping(value = "/addProfile", method = RequestMethod.POST)
+	public String addProfile(@Valid ProfilesModel newProfilesModel, BindingResult bindingResult, Model model, 
+			@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("gender") String gender,
+			@RequestParam("dayOfBirth") String dayOfBirth, @RequestParam("username") String username, 
+			@RequestParam("password") String password) throws ParseException, java.text.ParseException {
+    
 	public String addProfile(@Valid ProfilesModel newProfilesModel, BindingResult bindingResult, Model model,
 			@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("gender") String gender,
 			@RequestParam("dayOfBirth") String dayOfBirth, @RequestParam("username") String username, @RequestParam("password") String password) {
+
 		
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
