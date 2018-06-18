@@ -1,10 +1,7 @@
 package swenga.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.text.ParseException;
 
 import javax.validation.Valid;
 
@@ -19,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import swenga.dao.ProfileDao;
 import swenga.dao.UserDao;
 import swenga.dao.UserRoleDao;
 import swenga.model.ProfilesModel;
@@ -67,8 +65,8 @@ public class SecurityController {
 	
 	@RequestMapping(value = "/addProfile", method = RequestMethod.POST)
 	public String addProfile(@Valid ProfilesModel newProfilesModel, BindingResult bindingResult, Model model,
-			@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("gender") String gender,
-			@RequestParam("dayOfBirth") String dayOfBirth, @RequestParam("username") String username, @RequestParam("password") String password) {
+			@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("gender") boolean gender,
+			@RequestParam("dayOfBirth") Date dayOfBirth, @RequestParam("username") String username, @RequestParam("password") String password) {
 		
 		if (bindingResult.hasErrors()) {
 			String errorMessage = "";
@@ -81,17 +79,6 @@ public class SecurityController {
 		}
 		List<UserModel> users = userDao.findByUsername(username);
 		
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat formatDate = new SimpleDateFormat("dd-MM-yyyy");
-		
-		try {
-			calendar.setTime(formatDate.parse(dayOfBirth));
-		} 
-		catch (ParseException e) {				
-			model.addAttribute("errorMessage", "Error:" + e.getMessage());
-		}
-		
-		Date birthday = calendar.getTime();
 		
 		if (users == null) {
 			
@@ -101,7 +88,7 @@ public class SecurityController {
 			user.addUserRole(userRole);
 			userDao.persist(user);
 			
-			ProfilesModel profile = new ProfilesModel(firstname, lastname, Boolean.valueOf(gender), birthday);
+			ProfilesModel profile = new ProfilesModel(firstname, lastname, gender, dayOfBirth);
 		}
 		else {
 			model.addAttribute("errorMessage", "User already exists");
