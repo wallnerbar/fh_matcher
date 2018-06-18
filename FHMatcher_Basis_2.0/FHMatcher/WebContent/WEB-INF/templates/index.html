@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	>
+<head>
+<div th:replace="~{includes/bootstrap :: bootstrapMeta}" />
+<title>FH Matcher</title>
+<div th:replace="~{includes/bootstrap :: bootstrapCSS}" />
+</head>
+<body>
+	<div class="container" role="main">
+
+		<div class="page-header">
+			<h1><center><img src="FHMatcher.JPG"></center></h1>
+		</div>
+
+		<!--  Error message ----------------------------------------------------------- -->
+		<div th:unless="${errorMessage} == null" th:utext="${errorMessage}"
+			class="alert alert-danger" role="alert"></div>
+		<!--  Error message ----------------------------------------------------------- -->
+
+		<!--  Warning message ----------------------------------------------------------- -->
+		<div th:unless="${warningMessage} == null" th:utext="${warningMessage}"
+			class="alert alert-warning" role="warning"></div>
+		<!--  Warning message ----------------------------------------------------------- -->
+
+		<!--   message ----------------------------------------------------------- -->
+		<div th:unless="${message} == null" th:utext="${message}"
+			class="alert alert-success" role="warning"></div>
+		<!--   message ----------------------------------------------------------- -->
+
+		<nav th:replace="~{includes/searchNav :: search}"></nav>
+
+		<!--  1 simple button ----------------------------------------------------------- -->
+		<div class="row">
+		</div>
+		<!--  1 simple button ----------------------------------------------------------- -->
+
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+
+				<table data-toggle="table" class="table table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>First Name</th>
+							<th>Last Name</th>
+							<th>Gender</th>
+							<th>DOB</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--  list all items ----------------------------------------------------------- -->
+						<tr th:each="profile : ${profiles}">
+							<td th:text="${profile.id}"></td>
+							<td th:text="${profile.firstname}"></td>
+							<td th:text="${profile.lastname}"></td>
+							<td th:text="${profile.gender ? 'Female' : 'Male'}"></td>
+							<td th:text="${#calendars.format(profile.dayOfBirth,'dd.MM.yyyy')}"></td>
+							<td><a th:href="@{/delete(id=${profile.id})}" class="btn btn-danger">Delete</a></td>
+							<!-- <td><a sec:authorize="hasRole('ADMIN')" th:href="@{/delete(id=${profile.id})}">Delete</a></td> -->
+							
+						</tr>
+						<!--  list all items ----------------------------------------------------------- -->
+					</tbody>
+				</table>
+								
+			</div>
+		</div>
+		
+	</div>
+	<!--  End of container -->
+	<div th:replace="~{includes/bootstrap :: bootstrapJS}" />
+</body>
+</html>
