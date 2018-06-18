@@ -9,17 +9,17 @@
 
 
 	<http>
-		<csrf disabled="true"/>
-		<intercept-url pattern="/registration" access="permitAll" />
+		<csrf disabled="false"/>
+		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/fillUsers" access="permitAll" />
 		<!--<intercept-url pattern="/images/**" access="permitAll" /> -->
 
-		<intercept-url pattern="/**" access="hasRole('USER')" />
-		<intercept-url pattern="/**" access="hasRole('USER') or hasRole('ADMIN')" />
-		<intercept-url pattern="/**" access="permitAll" />
+		<!-- <intercept-url pattern="/**" access="hasRole('USER')" />-->
+		<!-- <intercept-url pattern="/**" access="hasRole('USER') or hasRole('ADMIN')" /> -->
+		<intercept-url pattern="/**" access="authenticated" />
 		<intercept-url pattern="/delete" access="hasRole('ADMIN')" />
 
-		<form-login login-page="/registration" default-target-url='/' always-use-default-target='true' />
+		<form-login login-page="/login" default-target-url='/' always-use-default-target='true' />
 		<logout logout-url="/logout" />
 	</http>
 
